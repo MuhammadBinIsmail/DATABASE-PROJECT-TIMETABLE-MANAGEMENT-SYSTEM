@@ -1,0 +1,37 @@
+Here is a step-by-step guide you can use to test and demonstrate the features of your Timetable Management System during your presentation:
+
+### 1. The Dashboard (Overview)
+*   **What to test/show:** When you open the app at `http://localhost:5173/`, you will land on the Dashboard. 
+*   **How to explain it:** Show the summary statistics. Explain that this gives a quick bird's-eye view of total teachers, courses, rooms, and departments currently in the system, fetching data directly from the MySQL database.
+
+### 2. Timetable View (The Core Feature)
+*   **What to test/show:** Click on the **Timetable View** in the sidebar.
+*   **How to explain it:** Show the weekly grid layout. You can explain how the backend aggregates data from multiple tables (Courses, Teachers, Rooms, Timeslots) using the SQL Views (`vw_full_timetable`) to display a complete, easy-to-read schedule. Point out a specific class on a specific day and time.
+
+### 3. Add & Delete Timetable Entry & Real-Time Conflict Warning
+*   **What to test/show:** Navigate to **Add Timetable Entry** (or the Timetable Management view). 
+*   **How to explain it:** 
+    *   **Adding:** First, try to book a conflicting slot. Explain that the system (both frontend and the database SQL triggers) prevents double-booking a room or a teacher for the same time slot. Next, change the room or time to an available slot and add the entry successfully. Mention that this uses a secure Database Transaction.
+    *   **Deleting:** Show how you can delete an existing timetable entry. Explain that the UI updates immediately and the backend safely removes the relational record using a DELETE API request.
+
+### 4. Reports (Teacher Workload & Room Utilization)
+*   **What to test/show:** Go to the **Reports** section.
+*   **How to explain it:** 
+    *   **Teacher Workload:** Show how you can see exactly how many classes/hours each teacher is assigned. Mention that this uses an advanced SQL Stored Procedure to calculate workload dynamically.
+    *   **Room Utilization:** Show which rooms are used the most and which are free. This is great for resource management.
+
+### 5. Conflict Checker
+*   **What to test/show:** Go to the **Conflict Checker** page.
+*   **How to explain it:** Explain that this tool acts as an audit log or a sanity check. It queries the database to ensure no hidden scheduling overlaps exist, demonstrating the robustness of your database design.
+
+### 6. Manage Data (CRUD Operations & Deletion)
+*   **What to test/show:** Go to the **Manage Data** section where you can view lists of your core entities.
+*   **How to explain it:** Demonstrate the full lifecycle of data by adding and then deleting entries. Explain how the database ensures data integrity (e.g., preventing the deletion of a teacher or course that is currently assigned to a timetable slot).
+    *   **Teachers:** Show how to add a "Test Teacher", see them in the list, and delete them via the `DELETE /api/teachers/:id` endpoint.
+    *   **Courses:** Demonstrate adding a "Test Course" and then deleting it. 
+    *   **Rooms:** Add a "Test Room" and delete it to show the API capability.
+    *   **Time Slots:** Add a new time slot, explain how it becomes available in the timetable grid, and then delete it.
+
+**Pro-Tip for your Demo:** Keep it interactive! Ask your Sir to pick a random teacher, room, and time, and try adding it live to show him the app correctly handles available slots and rejects conflicting ones. Then, delete the entry to show complete lifecycle management.
+
+Your backend is successfully running on port `5000` and your frontend is running on `http://localhost:5173/`. You are all set to go! Good luck with your demo!
